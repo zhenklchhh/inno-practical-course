@@ -1,6 +1,5 @@
-package test;
+package com.innowise.collections;
 
-import model.LinkedList;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -116,6 +115,7 @@ class LinkedListTest {
     @Test
     void test_get_OutOfBounds(){
         LinkedList<Integer> list = new LinkedList<>();
+        list.addLast(12);
         assertThrows(IndexOutOfBoundsException.class, () -> {
             list.get(1);
         });

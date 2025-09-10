@@ -1,4 +1,4 @@
-package model;
+package com.innowise.collections;
 
 /**
  * @author Evgeniy Zaleshchenok
