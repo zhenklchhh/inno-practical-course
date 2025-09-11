@@ -1,5 +1,6 @@
-package com.innowise.analysis;
+package test.java.com.innowise.analysis;
 
+import com.innowise.analysis.SalesMetricsCalculator;
 import com.innowise.datastructure.Customer;
 import com.innowise.datastructure.Order;
 import com.innowise.datastructure.OrderItem;
@@ -13,7 +14,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Evgeniy Zaleshchenok
