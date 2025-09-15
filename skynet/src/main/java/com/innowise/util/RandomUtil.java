@@ -11,8 +11,8 @@ import java.util.Random;
 public class RandomUtil {
     private static final Random RANDOM = new Random();
 
-    public int getRandomAmountOfRobotParts(int lowerBound, int upperBound) {
-        return RANDOM.nextInt(lowerBound, upperBound) + 1;
+    public int getRandomAmountOfRobotParts(int upperBound) {
+        return RANDOM.nextInt(upperBound) + 1;
     }
 
     public RobotParts getRandomRobotPart() {

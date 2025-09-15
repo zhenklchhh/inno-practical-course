@@ -35,13 +35,13 @@ public class Simulation {
             Thread.currentThread().interrupt();
         }
         System.out.println("\n================ FINAL RESULTS ================");
-        System.out.println("Total robots for faction " + world.factionName + ": " + world.quantityOfRobots);
-        System.out.println("Total robots for faction " + wednesday.factionName + ": " + wednesday.quantityOfRobots);
+        System.out.println("Total robots for faction " + world.getFactionName() + ": " + world.getQuantityOfRobots());
+        System.out.println("Total robots for faction " + wednesday.getFactionName() + ": " + wednesday.getQuantityOfRobots());
 
-        if (world.quantityOfRobots > wednesday.quantityOfRobots) {
-            System.out.println("The winning faction is: " + world.factionName);
-        } else if (wednesday.quantityOfRobots > world.quantityOfRobots) {
-            System.out.println("The winning faction is: " + wednesday.factionName);
+        if (world.getQuantityOfRobots() > wednesday.getQuantityOfRobots()) {
+            System.out.println("The winning faction is: " + world.getFactionName());
+        } else if (wednesday.getQuantityOfRobots() > world.getQuantityOfRobots()) {
+            System.out.println("The winning faction is: " + wednesday.getFactionName());
         } else {
             System.out.println("It's a tie!");
         }

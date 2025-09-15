@@ -4,10 +4,7 @@ import com.innowise.RobotParts;
 import com.innowise.simulation.Simulation;
 import com.innowise.util.RandomUtil;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CyclicBarrier;
@@ -18,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Factory extends Thread{
     private final RandomUtil randomUtil = new RandomUtil();
-    private ConcurrentHashMap<RobotParts, Integer> robotPartsOnSale = new ConcurrentHashMap<>();
+    private HashMap<RobotParts, Integer> robotPartsOnSale = new HashMap<>();
     private final AtomicInteger daysCounter;
     private final CyclicBarrier cyclicBarrier;
     private AtomicInteger amountOfParts = new AtomicInteger(0);
@@ -31,7 +28,7 @@ public class Factory extends Thread{
     @Override
     public void run() {
         while(daysCounter.get() <= Simulation.DAYS) {
-            int randomNumberOfParts = randomUtil.getRandomAmountOfRobotParts(0,10);
+            int randomNumberOfParts = randomUtil.getRandomAmountOfRobotParts(10);
             for (int i = 0; i < randomNumberOfParts; i++) {
                 RobotParts randomRobotPart = randomUtil.getRandomRobotPart();
                 robotPartsOnSale.put(randomRobotPart, robotPartsOnSale.getOrDefault(randomRobotPart, 0) + 1);
@@ -55,11 +52,13 @@ public class Factory extends Thread{
         List<RobotParts> robotPartsToGive = new ArrayList<>();
         List<RobotParts> availableRobotParts = getListOfAvailableParts();
         int partsToTake = Math.min(quantity, availableRobotParts.size());
-        for (int i = 0; i < Math.min(quantity, partsToTake); i++) {
+        for (int i = 0; i < partsToTake; i++) {
             RobotParts robotPart = availableRobotParts.get(i);
-            robotPartsToGive.add(robotPart);
-            robotPartsOnSale.compute(robotPart, (k,v) -> v - 1);
-            amountOfParts.decrementAndGet();
+            if (robotPartsOnSale.getOrDefault(robotPart, 0) > 0) {
+                robotPartsToGive.add(robotPart);
+                robotPartsOnSale.compute(robotPart, (k,v) -> v - 1);
+                amountOfParts.decrementAndGet();
+            }
         }
         synchronized (System.out){
             if (partsToTake == 0){
